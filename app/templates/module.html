@@ -1,12 +1,13 @@
-<!doctype html>
-<head>
-    <title>module</title>
-</head>
-<body>
-    <h1>{{ module_name }}</h1>
-    {% for function in functions %}
-    <ul>
-        <li><a href="{{ module_name }}/{{ function }}">{{ function }}</a></li>
-    </ul>
-    {% endfor %}
-</body>
+{% extends "layout.html" %}
+{% block body %}
+<div class=module>
+    <h1>{{ module.name }}</h1>
+    <p>{{ module.doc if module.doc is not none else "Please add a module docstring." }}</p>
+</div>
+{% for function in functions %}
+    <div class="function">
+        <h2><a href="{{ module.name }}/{{ function.name }}">{{ function.name }}</a></h2>
+        <p>{{ function.doc if function.doc is not none else "Please add a function docstring." }}</p>
+    </div>
+{% endfor %}
+{% endblock %}

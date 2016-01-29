@@ -1,9 +1,9 @@
-<!doctype html>
-<head>
-    <title>index</title>
-</head>
-<body>
-    {% for module_name in module_names %}
-        <li><a href="{{ module_name }}">{{ module_name }}</a></li>
+{% extends "layout.html" %}
+{% block body %}
+    {% for module in modules %}
+        <div class="module">
+            <h2><a href="{{ module.name }}">{{ module.name }}</a></h2>
+            <p>{{ module.doc if module.doc is not none else "Please add a module docstring." }}</p>
+        </div>
     {% endfor %}
-</body>
+{% endblock %}

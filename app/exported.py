@@ -1,4 +1,4 @@
-from collections import OrderedDict
+import collections
 import glob
 import imp
 import inspect
@@ -34,8 +34,33 @@ class Kwarg(Arg):
         return "Kwarg({}, {})".format(self.name, self.value)
 
 
+class ExportedModule(collections.Mapping):
+    def __init__(self, module, exported_functions):
+        self.name = module.__name__
+        self.doc = module.__doc__
+        self.exported_functions = collections.OrderedDict(
+            (fn_name, ExportedFunction(fn))
+            for fn_name, fn in exported_functions
+        )
+
+    def __getitem__(self, key):
+        return self.exported_functions[key]
+
+    def __len__(self):
+        return len(self.exported_functions)
+
+    def __iter__(self):
+        return iter(self.exported_functions)
+
+    def __repr__(self):
+        return "ExportedModule.{}({})".format(
+            self.name,
+            ", ".join(self.exported_functions)
+        )
+
+
 class ExportedFunction(object):
-    def __init__(self, module_name, fn):
+    def __init__(self, fn):
         args, _, _, defaults = inspect.getargspec(fn)
         defaults = defaults if defaults is not None else []
         arg_types = fn.arg_types
@@ -43,6 +68,8 @@ class ExportedFunction(object):
         num_args = len(args) if defaults is None else len(args) - len(defaults)
 
         self.fn = fn
+        self.name = fn.__name__
+        self.doc = fn.__doc__
         self.args = [Arg(name, type) for name, type in zip(args, arg_types)]
         for arg in args[len(self.args):num_args]:
             self.args.append(Arg(arg, kwarg_types.get(arg, dataviewer.text)))
@@ -69,12 +96,13 @@ class ExportedFunction(object):
         return self.fn.result_to_html(self.execute())
 
     def __repr__(self):
-        return "ExportedFunction({})".format(
+        return "ExportedFunction.{}({})".format(
+            self.name,
             ", ".join(map(repr, self.args + self.kwargs))
         )
 
 
-def find_exported_functions(modules_dir):
+def find_exported(modules_dir):
     def _is_exported_fn(fn):
         return (
             inspect.isfunction(fn) and
@@ -91,12 +119,12 @@ def find_exported_functions(modules_dir):
                 exported_modules.append(
                     (
                         module_name,
-                        OrderedDict(
-                            (fn_name, ExportedFunction(module_name, fn))
-                            for fn_name, fn in exported_functions)
+                        ExportedModule(module, exported_functions)
                     )
                 )
         except Exception as e:
             # TODO log exception properly
             print e
-    return OrderedDict(exported_modules)
+            import traceback
+            traceback.print_exc()
+    return collections.OrderedDict(exported_modules)
