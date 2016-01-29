@@ -6,13 +6,13 @@
         {% for arg in args %}
         <div class="arg">
             <label for="{{ arg.name }}">{{ arg.name }}</label>
-            <input id="{{ arg.name }}" name="{{ arg.name }}" type="{{ arg.html_type }}" required />
+            <input id="{{ arg.name }}" name="{{ arg.name }}" type="{{ arg.html_input_type }}" value="{{ arg.html_input_value }}" required />
         </div>
         {% endfor %}
         {% for kwarg in kwargs %}
         <div class="kwarg">
             <label for="{{ kwarg.name }}">{{ kwarg.name }}</label>
-            <input id="{{ kwarg.name }}" name="{{ kwarg.name }}" type="{{ kwarg.html_type }}" default="{{ kwarg.html_default }}" />
+            <input id="{{ kwarg.name }}" name="{{ kwarg.name }}" type="{{ kwarg.html_input_type }}" value="{{ kwarg.html_input_value }}" />
         </div>
         {% endfor %}
         <div>
@@ -22,6 +22,6 @@
         </div>
     </form>
     <div>
-        <pre>{{ content }}</pre>
+        <pre>{{ result }}</pre>
     </div>
 </body>
