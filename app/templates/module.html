@@ -5,9 +5,8 @@
     <p>{{ module.doc if module.doc is not none else "Please add a module docstring." }}</p>
 </div>
 {% for function in functions %}
-    <div class="function">
-        <h2><a href="{{ module.name }}/{{ function.name }}">{{ function.name }}</a></h2>
-        <p>{{ function.doc if function.doc is not none else "Please add a function docstring." }}</p>
-    </div>
+<div class="function">
+    {% include "function_form.html" %}
+</div>
 {% endfor %}
 {% endblock %}
