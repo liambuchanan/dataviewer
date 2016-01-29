@@ -93,7 +93,7 @@ class ExportedFunction(object):
         return self.fn(*args, **kwargs)
 
     def html_result(self):
-        return self.fn.result_to_html(self.execute())
+        return self.execute().to_html()
 
     def __repr__(self):
         return "ExportedFunction.{}({})".format(
