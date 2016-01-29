@@ -1,12 +1,16 @@
 {% extends "layout.html" %}
 {% block body %}
-<div class=module>
-    <h1>{{ module.name }}</h1>
-    <p>{{ module.doc if module.doc is not none else "Please add a module docstring." }}</p>
+<div class="row">
+    <div class="large12 columns">
+        <h1>{{ module.name }}</h1>
+        <p>{{ module.doc if module.doc is not none else "Please add a module docstring." }}</p>
+    </div>
 </div>
 {% for function in functions %}
-<div class="function">
-    {% include "function_form.html" %}
+<div class="row">
+    <div class="large-12 columns">
+        {% include "function_form.html" %}
+    </div>
 </div>
 {% endfor %}
 {% endblock %}

@@ -1,7 +1,13 @@
 {% extends "layout.html" %}
 {% block body %}
-{% include "function_form.html" %}
-<div>
-    {{ result|safe }}
+<div class="row">
+    <div class="small-12 columns">
+        {% include "function_form.html" %}
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        {{ result|safe }}
+    </div>
 </div>
 {% endblock %}

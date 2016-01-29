@@ -1,9 +1,16 @@
 {% extends "layout.html" %}
 {% block body %}
-    {% for module in modules %}
-        <div class="module">
-            <h2><a href="{{ module.name }}">{{ module.name }}</a></h2>
-            <p>{{ module.doc if module.doc is not none else "Please add a module docstring." }}</p>
-        </div>
-    {% endfor %}
+<div class="row">
+    <div class="large-12 text-center columns">
+        <h1>DataViewer</h1>
+    </div>
+</div>
+{% for module in modules %}
+<div class="row">
+    <div class="large-12 columns panel">
+        <h3><a href="{{ module.name }}">{{ module.name }}</a></h3>
+        <p>{{ module.doc if module.doc is not none else "Please add a module docstring." }}</p>
+    </div>
+</div>
+{% endfor %}
 {% endblock %}

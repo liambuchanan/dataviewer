@@ -1,23 +1,17 @@
-<div class="function_form">
-    <h3>{{ function.name }}</h3>
-    <p>{{ function.doc if function.doc is not none else "Please add a function docstring."}}</p>
-    <form>
+<form action="/{{ module.name }}/{{ function.name }}">
+    <fieldset class="fieldset">
+        <legend>{{ function.name }}</legend>
+        <p>{{ function.doc if function.doc is not none else "Please add a function docstring."}}</p>
         {% for arg in function.args %}
-        <div class="arg">
-            <label for="{{ arg.name }}">{{ arg.name }}</label>
+        <label for="{{ arg.name }}">{{ arg.name }}
             <input id="{{ arg.name }}" name="{{ arg.name }}" type="{{ arg.html_input_type }}" value="{{ arg.html_input_value }}" required />
-        </div>
+        </label>
         {% endfor %}
         {% for kwarg in function.kwargs %}
-        <div class="kwarg">
-            <label for="{{ kwarg.name }}">{{ kwarg.name }}</label>
+        <label for="{{ kwarg.name }}">{{ kwarg.name }}
             <input id="{{ kwarg.name }}" name="{{ kwarg.name }}" type="{{ kwarg.html_input_type }}" value="{{ kwarg.html_input_value }}" />
-        </div>
+        </label>
         {% endfor %}
-        <div>
-            <div>
-                <button type="submit">execute</button>
-            </div>
-        </div>
-    </form>
-</div>
+        <button class="button" type="submit">execute</button>
+    </fieldset>
+</form>
