@@ -4,7 +4,7 @@ import abc
 __all__ = ["Text", "Table"]
 
 
-class HtmlBuilder(object):
+class Builder(object):
     __metaclass__ = abc.ABCMeta
 
     def __init__(self, result):
@@ -13,14 +13,23 @@ class HtmlBuilder(object):
     @abc.abstractmethod
     def to_html(self):
         return
+"""
+    def to_json(self):
+        # TODO builders should optionally implement to_json
+        pass
+
+    def to_csv(self):
+        # TODO builders should optionally implement to_csv
+        pass
+"""
 
 
-class Text(HtmlBuilder):
+class Text(Builder):
     def to_html(self):
         return "<pre>{}</pre>".format(self.result)
 
 
-class Table(HtmlBuilder):
+class Table(Builder):
     def to_html(self):
         return "<table>{}</table>".format(
             "".join(

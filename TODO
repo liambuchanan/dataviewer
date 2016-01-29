@@ -1,5 +1,3 @@
-* create export_plot decorator
-* create export_csv decorator (or add functionality to export_tabular)
+* add plot builder
 * add more data types
 * add result caching
-* add css
