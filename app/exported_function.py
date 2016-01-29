@@ -65,6 +65,9 @@ class ExportedFunction(object):
         kwargs = {kwarg.name: kwarg.value for kwarg in self.kwargs}
         return self.fn(*args, **kwargs)
 
+    def html_result(self):
+        return self.fn.result_to_html(self.execute())
+
     def __repr__(self):
         return "ExportedFunction({})".format(
             ", ".join(map(repr, self.args + self.kwargs))

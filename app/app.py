@@ -30,25 +30,30 @@ def module(module_name):
 
 @app.route("/<module_name>/<function_name>")
 def function(module_name, function_name):
-    if (
-        module_name in EXPORTED_FUNCTIONS and
-        function_name in EXPORTED_FUNCTIONS[module_name]
-    ):
-        e_fn = EXPORTED_FUNCTIONS[module_name][function_name]
-        if len(request.args) > 0:
-            try:
-                e_fn.update_values(request.args)
-                result = e_fn.execute()
-            except Exception as e:
-                result = str(e)
-        return render_template(
-            "function.html",
-            args=e_fn.args,
-            kwargs=e_fn.kwargs,
-            result=result
-        )
-    else:
-        abort(404)
+    try:
+        if (
+            module_name in EXPORTED_FUNCTIONS and
+            function_name in EXPORTED_FUNCTIONS[module_name]
+        ):
+            e_fn = EXPORTED_FUNCTIONS[module_name][function_name]
+            result = ""
+            if len(request.args) > 0:
+                try:
+                    e_fn.update_values(request.args)
+                    result = e_fn.html_result()
+                except Exception as e:
+                    result = "<pre>{}</pre>".format(e)
+            return render_template(
+                "function.html",
+                args=e_fn.args,
+                kwargs=e_fn.kwargs,
+                result=result
+            )
+        else:
+            abort(404)
+    except:
+        import traceback
+        traceback.print_exc()
 
 
 if __name__ == "__main__":

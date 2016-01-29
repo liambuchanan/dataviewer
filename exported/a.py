@@ -1,12 +1,15 @@
 import dataviewer
 
 
-@dataviewer.export(dataviewer.number)
+@dataviewer.export_text(dataviewer.number)
 def a(a):
     assert isinstance(a, int)
     return a * 3
 
 
-@dataviewer.export(dataviewer.number, d=dataviewer.number)
+@dataviewer.export_tabular(dataviewer.number, d=dataviewer.number)
 def b(a, b, c=None, d=3):
-    return None
+    return [
+        [1, 2, 3],
+        [4, 5, 6]
+    ]
