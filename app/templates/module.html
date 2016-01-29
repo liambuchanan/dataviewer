@@ -1,0 +1,12 @@
+<!doctype html>
+<head>
+    <title>module</title>
+</head>
+<body>
+    <h1>{{ module_name }}</h1>
+    {% for function in functions %}
+    <ul>
+        <li><a href="{{ module_name }}/{{ function }}">{{ function }}</a></li>
+    </ul>
+    {% endfor %}
+</body>

@@ -1,0 +1,27 @@
+<head>
+    <title>function</title>
+</head>
+<body>
+    <form>
+        {% for arg in args %}
+        <div class="arg">
+            <label for="{{ arg.name }}">{{ arg.name }}</label>
+            <input id="{{ arg.name }}" name="{{ arg.name }}" type="{{ arg.html_type }}" required />
+        </div>
+        {% endfor %}
+        {% for kwarg in kwargs %}
+        <div class="kwarg">
+            <label for="{{ kwarg.name }}">{{ kwarg.name }}</label>
+            <input id="{{ kwarg.name }}" name="{{ kwarg.name }}" type="{{ kwarg.html_type }}" default="{{ kwarg.html_default }}" />
+        </div>
+        {% endfor %}
+        <div>
+            <div>
+                <button type="submit">execute</button>
+            </div>
+        </div>
+    </form>
+    <div>
+        <pre>{{ content }}</pre>
+    </div>
+</body>

@@ -1,0 +1,9 @@
+<!doctype html>
+<head>
+    <title>index</title>
+</head>
+<body>
+    {% for module_name in module_names %}
+        <li><a href="{{ module_name }}">{{ module_name }}</a></li>
+    {% endfor %}
+</body>
