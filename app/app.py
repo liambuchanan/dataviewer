@@ -1,10 +1,14 @@
-from flask import abort, Flask, render_template, request
+import os
 
 from exported import find_exported
 
+from flask import abort, Flask, render_template, request
+
 
 app = Flask(__name__)
-MODULE_DIR = "../exported"
+MODULE_DIR = os.path.normpath(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "../examples/")
+)
 EXPORTED = find_exported(MODULE_DIR)
 
 
