@@ -1,7 +1,10 @@
 import abc
+import json
+
+import plotly.utils
 
 
-__all__ = ["Text", "Table"]
+__all__ = ["Text", "Table", "PlotlyObject"]
 
 
 class Builder(object):
@@ -38,5 +41,21 @@ class Table(Builder):
                     "".join("<td>{}</td>".format(cell) for cell in row)
                     for row in self.result
                 )
+            )
+        )
+
+
+class PlotlyObject(Builder):
+    def to_html(self):
+        return (
+            """
+            <script src="/static/plotly.min.js"></script>
+            <div id="content"></div>
+            <script>
+                content_div = document.getElementById('content');
+                Plotly.plot(content_div, [{}]);
+            </script>
+            """.format(
+                json.dumps(self.result, cls=plotly.utils.PlotlyJSONEncoder)
             )
         )
